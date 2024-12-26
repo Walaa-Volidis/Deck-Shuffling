@@ -36,13 +36,15 @@ export function useDeck() {
   const [drawnCards, setDrawnCards] = useState([]);
   const [deckCount, setDeckCount] = useState(1);
 
+  const addDeck = () => {
+    setDeckCount((prev) => prev + 1);
+    setDeck((prev) => [...prev, ...generateDeck()]);
+  };
+
   return {
     generateDeck,
     deck,
-    setDeck,
     drawnCards,
-    setDrawnCards,
-    deckCount,
-    setDeckCount,
+    addDeck,
   };
 }
