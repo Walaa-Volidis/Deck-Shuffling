@@ -17,7 +17,7 @@ export function useDeck() {
       'Q',
       'K',
     ];
-    const deck: object[] = [];
+    const deck: { suit: string; value: string }[] = [];
 
     suits.forEach((suit) => {
       values.forEach((value) => {
@@ -32,8 +32,12 @@ export function useDeck() {
 
     return deck;
   };
-  const [deck, setDeck] = useState(generateDeck());
-  const [drawnCards, setDrawnCards] = useState([]);
+  const [deck, setDeck] = useState<{ suit: string; value: string }[]>(
+    generateDeck()
+  );
+  const [drawnCards, setDrawnCards] = useState<
+    { suit: string; value: string }[]
+  >([]);
   const [deckCount, setDeckCount] = useState(1);
 
   const addDeck = () => {
@@ -41,10 +45,27 @@ export function useDeck() {
     setDeck((prev) => [...prev, ...generateDeck()]);
   };
 
+  const refreshDeck = () => {
+    setDeck(generateDeck());
+    setDrawnCards([]);
+  };
+
+  const drawCards = () => {
+    if (deck.length === 0) return;
+    const cardsCount = Math.min(deck.length, 5);
+    const drawn = deck.slice(0, cardsCount);
+    const remianing = deck.slice(cardsCount);
+    setDeck(remianing);
+    setDrawnCards(drawn);
+  };
+
   return {
     generateDeck,
     deck,
+    deckCount,
     drawnCards,
     addDeck,
+    refreshDeck,
+    drawCards,
   };
 }
