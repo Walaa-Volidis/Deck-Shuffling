@@ -27,7 +27,7 @@ export function useDeck() {
   }, [drawnCards]);
 
   const refreshDeck = () => {
-    //store the last 10 suffled cards
+    //store the last 10 shuffled cards
     const newDeck = generateDeck();
     setDeck(newDeck);
     setDrawnCards([]);
