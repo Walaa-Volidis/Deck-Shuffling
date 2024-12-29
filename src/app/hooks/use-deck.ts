@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Deck, generateDeck } from '../deck';
 export function useDeck() {
   const [deck, setDeck] = useState<Deck>(generateDeck());
   const [drawnCards, setDrawnCards] = useState<Deck>([]);
+
+  //auto draw cards after 5sec
+  useEffect(() => {
+    const interval = setInterval(() => {
+      drawCards();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [deck]);
 
   const refreshDeck = () => {
     setDeck(generateDeck());
@@ -18,11 +26,17 @@ export function useDeck() {
     setDrawnCards(drawn);
   };
 
+  // add deck
+  const addDeck = () => {
+    setDeck([...deck, ...generateDeck()]);
+  };
+
   return {
     generateDeck,
     deck,
     drawnCards,
     refreshDeck,
     drawCards,
+    addDeck,
   };
 }

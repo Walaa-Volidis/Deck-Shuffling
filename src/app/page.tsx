@@ -5,7 +5,7 @@ import { useDeck } from './hooks/use-deck';
 import { RenderCard } from './render-card';
 
 export default function DeckSufflingGame() {
-  const { deck, drawnCards, refreshDeck, drawCards } = useDeck();
+  const { deck, drawnCards, refreshDeck, drawCards, addDeck } = useDeck();
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
@@ -15,6 +15,7 @@ export default function DeckSufflingGame() {
             Draw Cards ({deck.length} remaining)
           </Button>
           <Button onClick={refreshDeck}>Refresh Deck</Button>
+          <Button onClick = {addDeck}>Add Deck</Button>
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center">
