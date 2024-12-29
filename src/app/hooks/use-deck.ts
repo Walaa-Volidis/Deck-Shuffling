@@ -3,6 +3,7 @@ import { Deck, generateDeck } from '../deck';
 export function useDeck() {
   const [deck, setDeck] = useState<Deck>(generateDeck());
   const [drawnCards, setDrawnCards] = useState<Deck>([]);
+  const [suffledDeck, setSuffledDeck] = useState<Deck>([]);
 
   //auto draw cards after 5sec
   useEffect(() => {
@@ -13,8 +14,11 @@ export function useDeck() {
   }, [deck]);
 
   const refreshDeck = () => {
-    setDeck(generateDeck());
+    //store the last 10 suffled cards
+    const newDeck = generateDeck();
+    setDeck(newDeck);
     setDrawnCards([]);
+    setSuffledDeck(newDeck.slice(-10));
   };
 
   const drawCards = () => {
@@ -30,6 +34,7 @@ export function useDeck() {
   const addDeck = () => {
     setDeck([...deck, ...generateDeck()]);
   };
+
 
   return {
     generateDeck,
