@@ -22,7 +22,7 @@ export type Card = {
 
 export type Deck = Card[];
 
-export function generateDeck() {
+export function generateDeck(deckCount: number = 1): Deck {
   const deck: Card[] = [];
   const cardRanks: CardRank[] = [
     '1',
@@ -40,13 +40,17 @@ export function generateDeck() {
     'K',
   ];
   const suits: Suits[] = ['hearts', 'diamonds', 'clubs', 'spades'];
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 0; j < cardRanks.length; j++) {
-      deck.push({ suits: suits[i], cardRank: cardRanks[j] });
+  for (let k = 0; k < deckCount; k++) {
+    for (let i = 0; i < suits.length; i++) {
+      for (let j = 0; j < cardRanks.length; j++) {
+        deck.push({ suits: suits[i], cardRank: cardRanks[j] });
+      }
     }
   }
+  return deck;
+}
 
-  //shuffle deck
+export function shuffleDeck(deck: Deck): Deck {
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
