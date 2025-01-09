@@ -7,13 +7,13 @@ export function useDeck() {
 
   useEffect(() => {
     const drawn = JSON.parse(localStorage.getItem('drawnCards') as string);
-    setDrawnCards(drawn);
+    if (drawn) setDrawnCards(drawn);
     const cards = JSON.parse(localStorage.getItem('deck') as string);
-    setDeck(cards);
+    if (cards) setDeck(cards);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('deck', JSON.stringify(deck));
+    //localStorage.setItem('deck', JSON.stringify(deck));
     const interval = setInterval(() => {
       drawCards();
     }, 5000);
@@ -21,7 +21,7 @@ export function useDeck() {
   }, [deck]);
 
   useEffect(() => {
-    localStorage.setItem('drawnCards', JSON.stringify(drawnCards));
+    //localStorage.setItem('drawnCards', JSON.stringify(drawnCards));
   }, [drawnCards]);
 
   const refreshDeck = (deckCount: number = 1) => {
